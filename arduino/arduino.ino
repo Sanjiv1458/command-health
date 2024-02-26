@@ -120,7 +120,7 @@ void loop()
       client.loop();
     }
     // Wait for a bit to prevent serial data from saturating
-    delay(250);
+    delay(1000);
   }
 }
 
