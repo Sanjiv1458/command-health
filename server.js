@@ -5,9 +5,9 @@ const io = require('socket.io')(http);
 const mqtt = require('mqtt');
 const voiceSensing = require('./voiceSensing');
 
-const mqttServer = 'broker.hivemq.com'; // Update with your MQTT server
-const mqttTopic = 'health_monitor_system'; // Update with the MQTT topic
-const mqttControl = 'health_monitor_control'; // Update with the MQTT topic
+const mqttServer = 'broker.hivemq.com';
+const mqttTopic = 'health_monitor_system';
+const mqttControl = 'health_monitor_control';
 
 // Connect to MQTT broker
 const client = mqtt.connect(`mqtt://${mqttServer}`);

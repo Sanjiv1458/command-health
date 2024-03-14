@@ -8,7 +8,7 @@ module.exports.initializeVoiceSensing = async (io, client, mqttControl) => {
   let isRecognizing = false;
 
   try {
-    cheetah = new Cheetah("tUBd2EpT2eDgWSXvuMbLf+0/f/oGjm6TNmnC6c3sPqrCdnajnRX0dQ=="); // Replace with your Picovoice AccessKey
+    cheetah = new Cheetah("tUBd2EpT2eDgWSXvuMbLf+0/f/oGjm6TNmnC6c3sPqrCdnajnRX0dQ==");
   } catch (err) {
     console.error(err);
     return;
@@ -41,13 +41,10 @@ module.exports.initializeVoiceSensing = async (io, client, mqttControl) => {
         process.stdout.write(`${flushedTranscript}\n`);
 
         if (isRecognizing) {
-          // Check if the flushedTranscript contains a recognized command
           if (flushedTranscript.includes("On")) {
             console.log("published ON . . . . . . .. ");
-            // Publish "ON" command to MQTT
             client.publish(mqttControl, 'start_sensing');
           } else if (flushedTranscript.includes("Of")) {
-            // Publish "OFF" command to MQTT
             console.log("published OFF . . . . . . .. ");
             client.publish(mqttControl, 'stop_sensing');
           }
