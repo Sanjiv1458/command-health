@@ -7,8 +7,10 @@ module.exports.initializeVoiceSensing = async (io, client, mqttControl) => {
   let cheetah;
   let isRecognizing = false;
 
+  const API_KEY = process.env.PICOVOICE_API_KEY;
+
   try {
-    cheetah = new Cheetah("tUBd2EpT2eDgWSXvuMbLf+0/f/oGjm6TNmnC6c3sPqrCdnajnRX0dQ==");
+    cheetah = new Cheetah(API_KEY);
   } catch (err) {
     console.error(err);
     return;

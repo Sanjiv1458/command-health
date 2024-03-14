@@ -4,20 +4,20 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const mqtt = require('mqtt');
 const voiceSensing = require('./voiceSensing');
+const dotenv = require('dotenv');
 
-const mqttServer = 'broker.hivemq.com';
-const mqttTopic = 'health_monitor_system';
-const mqttControl = 'health_monitor_control';
+dotenv.config();
 
-// Connect to MQTT broker
+const mqttServer = process.env.MQTT_SERVER;
+const mqttTopic = process.env.MQTT_TOPIC;
+const mqttControl = process.env.MQTT_CONTROL;
+
 const client = mqtt.connect(`mqtt://${mqttServer}`);
 
-// Serve the HTML page
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-// Handle MQTT messages
 client.on('connect', () => {
   console.log('Connected to MQTT');
   client.subscribe(mqttTopic);
@@ -28,7 +28,6 @@ client.on('message', (topic, message) => {
   io.sockets.emit('sensorData', data);
 });
 
-// Handle Socket.io connections
 io.on('connection', (socket) => {
   console.log('A user connected');
 
